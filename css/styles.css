@@ -1,0 +1,542 @@
+/* SimpleClock.online - Main Stylesheet */
+/* Version: 1.0.0 */
+
+/* ===== CSS Variables ===== */
+:root {
+  --primary-color: #ff9900;
+  --primary-hover: #e68a00;
+  --bg-dark: #222;
+  --bg-section: #333;
+  --bg-element: #444;
+  --bg-hover: #555;
+  --text-primary: #fff;
+  --text-secondary: #aaa;
+  --danger-color: #ff4444;
+  --success-color: #44ff44;
+  --info-color: #4444ff;
+  --border-radius: 10px;
+  --border-radius-small: 5px;
+  --transition-speed: 0.3s;
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+/* ===== Global Styles ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  text-align: center;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4, h5, h6 {
+  margin: 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+/* ===== Header Styles ===== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: var(--bg-dark);
+  z-index: 1000;
+  border-bottom: 1px solid var(--bg-section);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.header-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.logo-container {
+  height: 50px;
+}
+
+.logo-container img {
+  height: 100%;
+  width: auto;
+  filter: brightness(0.9);
+  transition: filter var(--transition-speed);
+}
+
+.logo-container img:hover {
+  filter: brightness(1.1);
+}
+
+/* ===== Navigation ===== */
+nav {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-section);
+  padding: 10px;
+  z-index: 999;
+  display: none;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+nav a {
+  color: var(--text-primary);
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 14px;
+  transition: color var(--transition-speed);
+}
+
+nav a:hover {
+  color: var(--primary-color);
+}
+
+/* ===== Container ===== */
+.container {
+  margin-top: 80px;
+  padding: 20px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Sections ===== */
+.section {
+  background-color: var(--bg-section);
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* ===== Clock Display ===== */
+#clock {
+  font-size: 60px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===== Form Elements ===== */
+select, input, button {
+  font-size: 16px;
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: var(--border-radius-small);
+  outline: none;
+  font-family: inherit;
+  transition: all var(--transition-speed);
+}
+
+select {
+  background-color: var(--bg-element);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+select:hover {
+  background-color: var(--bg-hover);
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(255,153,0,0.3);
+}
+
+button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button[disabled] {
+  background-color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ===== Focus Styles ===== */
+button:focus, select:focus, input:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ===== World Time ===== */
+#worldTimes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.world-time-item {
+  background-color: var(--bg-element);
+  padding: 15px;
+  border-radius: var(--border-radius-small);
+  min-width: 150px;
+  transition: all var(--transition-speed);
+  border: 1px solid transparent;
+}
+
+.world-time-item:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.world-time-item strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary-color);
+}
+
+/* ===== Timer & Chronometer Displays ===== */
+#chronometerDisplay, #timerDisplay {
+  font-size: 40px;
+  margin: 10px 0;
+  font-variant-numeric: tabular-nums;
+  font-weight: 300;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===== Selectors ===== */
+#alarmSelector, #timerSelector {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#alarmSelector select, #timerSelector select {
+  font-size: 16px;
+  padding: 8px;
+  margin: 3px;
+  width: 70px;
+}
+
+/* ===== Alarm List ===== */
+#alarmList {
+  margin-top: 15px;
+}
+
+#alarmList > div {
+  background-color: var(--bg-element);
+  padding: 8px 12px;
+  margin: 5px auto;
+  border-radius: var(--border-radius-small);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all var(--transition-speed);
+}
+
+#alarmList > div:hover {
+  background-color: var(--bg-hover);
+}
+
+.deleteAlarmBtn {
+  background-color: #cc3333;
+  padding: 5px 10px;
+  font-size: 14px;
+  margin: 0;
+  min-width: 30px;
+}
+
+.deleteAlarmBtn:hover {
+  background-color: #aa2222;
+}
+
+/* ===== Status Messages ===== */
+#alarmMessage {
+  font-size: 20px;
+  color: var(--danger-color);
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+#audioStatus {
+  background-color: var(--bg-hover);
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  display: inline-block;
+  transition: all var(--transition-speed);
+}
+
+/* ===== Animations ===== */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.alarm-active {
+  animation: pulse 1s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ===== Ad Containers ===== */
+.ad-container {
+  text-align: center;
+  margin: 20px auto;
+  max-width: 100%;
+  min-height: 90px;
+  background-color: var(--bg-section);
+  border-radius: var(--border-radius-small);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 12px;
+}
+
+.ad-container.top-banner {
+  margin-bottom: 30px;
+}
+
+/* ===== Footer ===== */
+footer {
+  background-color: var(--bg-section);
+  color: var(--text-primary);
+  padding: 40px 20px 20px;
+  margin-top: 60px;
+  border-top: 1px solid var(--bg-element);
+}
+
+.footer-links {
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: var(--text-primary);
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 14px;
+  transition: color var(--transition-speed);
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.copyright {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 20px;
+}
+
+/* ===== Utility Classes ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 24px;
+  }
+  
+  .logo-container {
+    height: 40px;
+  }
+  
+  .container {
+    padding: 15px;
+  }
+  
+  #clock {
+    font-size: 48px;
+  }
+  
+  #chronometerDisplay, #timerDisplay {
+    font-size: 32px;
+  }
+  
+  button {
+    width: 100%;
+    max-width: 250px;
+    margin: 5px auto;
+    display: block;
+  }
+  
+  .world-time-item {
+    min-width: 140px;
+    padding: 10px;
+  }
+  
+  .ad-container {
+    display: none;
+  }
+  
+  #alarmSelector, #timerSelector {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 20px;
+  }
+  
+  #clock {
+    font-size: 36px;
+  }
+  
+  select {
+    width: 60px;
+    padding: 6px;
+  }
+  
+  h1 {
+    font-size: 24px;
+  }
+  
+  h2 {
+    font-size: 20px;
+  }
+}
+
+/* ===== Print Styles ===== */
+@media print {
+  header, nav, footer, .ad-container, button, select {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white;
+    color: black;
+  }
+  
+  .section {
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: none;
+  }
+}
+
+/* ===== Dark Mode Toggle (future feature) ===== */
+@media (prefers-color-scheme: light) {
+  /* Future light mode styles */
+}
+
+/* ===== Loading Animation ===== */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
